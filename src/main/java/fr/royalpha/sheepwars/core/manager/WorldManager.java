@@ -147,17 +147,15 @@ public class WorldManager {
 					return;
 				}
 			}
-			player.sendMessage(ChatColor.GREEN + "Teleporting to \"" + world + "\" ...");
-			Location loc = new Location(map.getWorld(), 0, 64, 0);
-			if (map.getWorld().getSpawnLocation() != null)
-				loc = map.getWorld().getSpawnLocation();
-			final Block block = loc.subtract(0, 1, 0).getBlock();
-			if (block.isLiquid() || block.isEmpty()) {
-				player.teleport(map.getWorld().getSpawnLocation());
-				player.setAllowFlight(true);
-				player.setFlying(true);
-			}
-		}
+            player.sendMessage(ChatColor.GREEN + "Teleporting to \"" + world + "\" ...");
+            Location loc = map.getWorld().getSpawnLocation();
+            if (loc == null) {
+                loc = new Location(map.getWorld(), 0, 64, 0);
+            }
+            player.teleport(loc);
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        }
 	}
 
 	public void checkVoteMode(@Nullable CommandSender sender) {
