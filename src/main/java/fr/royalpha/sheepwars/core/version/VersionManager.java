@@ -38,8 +38,8 @@ public class VersionManager {
             // This implementation is strictly limited to 1.8.8/1.8.9 and cannot be reused
             this.IParticleSpawner = loadModule("ParticleSpawner");
             this.IBoosterDisplayer = loadModule("BoosterDisplayer");
-        } else if (this.version.equals(MinecraftVersion.v1_9_R1) || this.version.equals(MinecraftVersion.v1_9_R2)) {
-            // Minecraft 1.9.X
+        } else if (this.version.equals(MinecraftVersion.v1_9_R1) || this.version.equals(MinecraftVersion.v1_9_R2) || this.version.equals(MinecraftVersion.v1_12_R1)) {
+            // Minecraft 1.9.X and 1.12.X
             // ParticleSpawner uses NMS and tightly coupled to the exact server revision
             //
             // BoosterDisplayer uses the Bukkit BossBar API (introduced in 1.9).
@@ -47,7 +47,7 @@ public class VersionManager {
             this.IBoosterDisplayer = loadModule("BoosterDisplayer", MinecraftVersion.v1_9_R1);
         } else {
             // TODO: Create version-specific implementations for newer versions
-            this.IParticleSpawner = loadModule("ParticleSpawner", MinecraftVersion.v1_12_R1); // generic fallback
+            this.IParticleSpawner = loadModule("ParticleSpawner", MinecraftVersion.v1_15_R1); // generic fallback
             this.IBoosterDisplayer = loadModule("BoosterDisplayer", MinecraftVersion.v1_9_R1);
         }
 
