@@ -32,7 +32,7 @@ public class LegacyItem {
     }
 
     public ItemStack getItemStack() {
-        if (SheepWarsPlugin.getVersionManager().getVersion().newerThan(MinecraftVersion.v1_12_R1)) {
+        if (SheepWarsPlugin.getVersionManager().getVersion().newerThan(MinecraftVersion.v1_13_R1)) {
             //Bukkit.broadcastMessage("no boy");
             return new ItemStack(color == null ? mat.getMaterial() : mat.getColoredMaterial(color), amount);
         } else {
