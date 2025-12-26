@@ -1,16 +1,16 @@
-package fr.royalpha.sheepwars.v1_9_R1;
+package fr.royalpha.sheepwars.v1_9_R2;
 
 import fr.royalpha.sheepwars.api.PlayerData;
 import fr.royalpha.sheepwars.core.handler.Particles;
 import fr.royalpha.sheepwars.core.manager.ExceptionManager;
 import fr.royalpha.sheepwars.core.version.IParticleSpawner;
+import net.minecraft.server.v1_9_R2.EnumParticle;
+import net.minecraft.server.v1_9_R2.PacketPlayOutWorldParticles;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import net.minecraft.server.v1_9_R1.EnumParticle;
-import net.minecraft.server.v1_9_R1.PacketPlayOutWorldParticles;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 
 import java.util.ArrayList;
 

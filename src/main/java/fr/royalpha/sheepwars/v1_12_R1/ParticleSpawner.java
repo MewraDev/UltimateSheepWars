@@ -1,16 +1,16 @@
-package fr.royalpha.sheepwars.v1_9_R1;
+package fr.royalpha.sheepwars.v1_12_R1;
 
 import fr.royalpha.sheepwars.api.PlayerData;
 import fr.royalpha.sheepwars.core.handler.Particles;
 import fr.royalpha.sheepwars.core.manager.ExceptionManager;
 import fr.royalpha.sheepwars.core.version.IParticleSpawner;
+import net.minecraft.server.v1_12_R1.EnumParticle;
+import net.minecraft.server.v1_12_R1.PacketPlayOutWorldParticles;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import net.minecraft.server.v1_9_R1.EnumParticle;
-import net.minecraft.server.v1_9_R1.PacketPlayOutWorldParticles;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class ParticleSpawner implements IParticleSpawner {
             String particleName = particle.toString();
 
             // Particles with block/item data require NMS as the Bukkit API
-            // doesn't properly handle data in 1.9, causing missing textures
+            // doesn't properly handle data in 1.12, causing missing textures
             if (particleName.equals("ITEM_CRACK") || particleName.equals("BLOCK_CRACK") || particleName.equals("BLOCK_DUST")) {
                 EnumParticle enumParticle = EnumParticle.valueOf(particleName);
                 PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(
