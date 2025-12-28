@@ -50,8 +50,8 @@ public class PlayerInteract extends UltimateSheepWarsEventListener {
 			final Material mat = item.getType();
 
 			if (GameState.isStep(GameState.INGAME) && mat.toString().contains("WOOL")) {
-				
-				SheepWarsSheep sheep = SheepWarsSheep.getCorrespondingSheep(item, player);
+
+                SheepWarsSheep sheep = SheepWarsSheep.getCorrespondingSheepByTag(item);
 				int maxIntergalactic = ConfigManager.getInt(ConfigManager.Field.MAX_INTERGALACTIC_SHEEPS);
 				boolean isIntergalactic = (sheep.equals(new IntergalacticSheep()));
 				if (sheep != null && !data.getTeam().isBlocked() && !player.isInsideVehicle() && (!isIntergalactic || maxIntergalactic <= 0 || isIntergalactic && IntergalacticSheep.IN_USE < maxIntergalactic)) {

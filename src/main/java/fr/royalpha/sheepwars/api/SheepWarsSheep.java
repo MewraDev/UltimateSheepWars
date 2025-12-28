@@ -156,9 +156,14 @@ public abstract class SheepWarsSheep {
 	/**
 	 * Get the sheep icon according to the player's language.
 	 */
-	public ItemStack getIcon(Player player) {
-		return new ItemBuilder(new LegacyItem(LegacyMaterial.WOOL, this.color, 1, this.color.getWoolData())).setName(getName(player)).toItemStack();
-	}
+    public ItemStack getIcon(Player player) {
+        ItemStack item = new ItemBuilder(new LegacyItem(LegacyMaterial.WOOL, this.color, 1, this.color.getWoolData()))
+                .setName(getName(player))
+                .toItemStack();
+
+        // Add an NBT tag with the sheep ID for multilingual identification
+        return SheepWarsPlugin.getVersionManager().getNMSUtils().addNBTTag(item, "USW_SheepID", this.getId());
+    }
 
 	/**
 	 * Get the sheep duration.
@@ -303,6 +308,11 @@ public abstract class SheepWarsSheep {
 		return this.configPath.equals(other.configPath);
 	}
 
+    /**
+     @deprecated Since 5.0.8, for removal in a future version.
+     Use {@link #getCorrespondingSheepByTag} instead.
+     */
+    @Deprecated
 	public static SheepWarsSheep getCorrespondingSheep(ItemStack item, Player player) {
 		for (SheepWarsSheep sheep : availableSheeps) {
 			if (item.isSimilar(sheep.getIcon(player)))
@@ -310,6 +320,28 @@ public abstract class SheepWarsSheep {
 		}
 		return null;
 	}
+
+    /**
+     * Retrieves the sheep corresponding to an item using its NBT tag.
+     * This method is independent of the player's language.
+     *
+     * @param item  The ItemStack to identify
+     * @return The corresponding SheepWarsSheep, or null if not found
+     */
+    public static SheepWarsSheep getCorrespondingSheepByTag(ItemStack item) {
+        if (item == null) {
+            return null;
+        }
+
+        // Read the NBT tag “USW_SheepID”
+        Integer sheepId = SheepWarsPlugin.getVersionManager().getNMSUtils().getNBTTag(item, "USW_SheepID");
+
+        if (sheepId != null && sheepId >= 0 && sheepId < availableSheeps.size()) {
+            return availableSheeps.get(sheepId);
+        }
+
+        return null;
+    }
 	
 	/**
 	 * Get registered sheeps.

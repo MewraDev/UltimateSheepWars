@@ -23,5 +23,9 @@ public interface INMSUtils {
 	public void cancelMove(final Player player, final boolean bool);
 
 	public void updateNMSServerMOTD(final String MOTD);
-	
+
+    public ItemStack addNBTTag(final ItemStack item, final String key, final int value);
+
+    public Integer getNBTTag(final ItemStack item, final String key);
+
 }
