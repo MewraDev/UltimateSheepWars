@@ -124,4 +124,66 @@ public class NMSUtils implements INMSUtils {
 		}
 		return meta;
 	}
+
+    @Override
+    public ItemStack addNBTTag(ItemStack item, String key, int value) {
+        if (item == null) {
+            return null;
+        }
+
+        try {
+            // Convert Bukkit ItemStack to NMS ItemStack
+            net.minecraft.server.v1_9_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+
+            // Retrieve or create the NBTTagCompound
+            NBTTagCompound tag = nmsStack.getTag();
+            if (tag == null) {
+                tag = new NBTTagCompound();
+            }
+
+            // Add the tag
+            tag.setInt(key, value);
+
+            // Save the tag on the item
+            nmsStack.setTag(tag);
+
+            // Convert back to ItemStack Bukkit
+            return CraftItemStack.asBukkitCopy(nmsStack);
+
+        } catch (Exception e) {
+            if (ConfigManager.getBoolean(ConfigManager.Field.ALLOW_DEBUG)) {
+                System.err.println("Error adding NBT tag: " + e.getMessage());
+                e.printStackTrace();
+            }
+            return item;
+        }
+    }
+
+    @Override
+    public Integer getNBTTag(ItemStack item, String key) {
+        if (item == null) {
+            return null;
+        }
+
+        try {
+            // Convert Bukkit ItemStack to NMS ItemStack
+            net.minecraft.server.v1_9_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+
+            // Retrieve the NBTTagCompound
+            NBTTagCompound tag = nmsStack.getTag();
+            if (tag == null || !tag.hasKey(key)) {
+                return null;
+            }
+
+            // Read the value
+            return tag.getInt(key);
+
+        } catch (Exception e) {
+            if (ConfigManager.getBoolean(ConfigManager.Field.ALLOW_DEBUG)) {
+                System.err.println("Error reading NBT tag: " + e.getMessage());
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }
