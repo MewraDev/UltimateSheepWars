@@ -22,6 +22,9 @@ public class PlayerPickupItem extends UltimateSheepWarsEventListener {
         Player player = event.getPlayer();
         ItemStack item = event.getItem().getItemStack();
 
+        // Cancel default pickup
+        event.setCancelled(true);
+
         if (!item.getType().toString().contains("WOOL")) {
             return;
         }
@@ -30,9 +33,6 @@ public class PlayerPickupItem extends UltimateSheepWarsEventListener {
         SheepWarsSheep sheepType = SheepWarsSheep.getCorrespondingSheepByTag(item);
 
         if (sheepType != null) {
-            // Cancel default pickup
-            event.setCancelled(true);
-
             // Remove the item from the ground
             event.getItem().remove();
 
